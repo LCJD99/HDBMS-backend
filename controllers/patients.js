@@ -15,8 +15,6 @@ patientRouter.get('/', async (req, res) => {
     where.name= {
       [Op.substring]: req.query.name
     }
-    console.log(req.query.name)
-    
   } 
 
   if (req.query.balance) {
@@ -31,10 +29,12 @@ patientRouter.get('/', async (req, res) => {
     }
   }
 
-  const p = await Patient.findAll({
-    where
+  const p = await Patient.findAll({ 
+    includes:{
+      model : Doctor
+    },
+    where 
   } )
-
 
   res.json(p)
 })

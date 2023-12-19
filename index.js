@@ -4,14 +4,14 @@ const app = express()
 const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
 
-const notesRouter = require('./controllers/notes')
 const patientRouter = require('./controllers/patients')
+const doctorRouter = require('./controllers/doctors')
 
 
 app.use(express.json())
 
-app.use('/api/notes', notesRouter)
 app.use('/api/patients', patientRouter)
+app.use('/api/doctors', doctorRouter)
 
 const start = async () => {
   await connectToDatabase()
