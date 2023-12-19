@@ -19,14 +19,14 @@ Medication.belongsToMany(Prescription, {through: PresciptionMedication})
 Record.hasMany(Testlab)
 Testlab.belongsTo(Record)
 
-Note.sync({alter: true})
-Doctor.sync({alter: true})
-Patient.sync({alter: true})
-Record.sync({alter: true})
-Medication.sync({alter: true})
-Prescription.sync({alter: true})
-Testlab.sync({alter: true})
-PresciptionMedication.sync({alter: true})
+// Note.sync({alter: true})
+// Doctor.sync({alter: true})
+// Patient.sync({alter: true})
+// Record.sync({alter: true})
+// Medication.sync({alter: true})
+// Prescription.sync({alter: true})
+// Testlab.sync({alter: true})
+// PresciptionMedication.sync({alter: true})
 
 
 module.exports = {
