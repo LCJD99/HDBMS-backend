@@ -2,6 +2,7 @@ const patientRouter = require('express').Router()
 const {Op} = require('sequelize')
 
 const { Patient } = require('../models')
+const Doctor = require('../models/doctor')
 
 const Finder = async (req, res, next) => {
   req.patient= await Patient.findByPk(req.params.id)

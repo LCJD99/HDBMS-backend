@@ -26,14 +26,6 @@ Patient.init({
     type: DataTypes.DOUBLE,
     defaultValue: 0
   },
-  doctorId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'doctors',
-      key: 'id'
-    }
-  },
 
 }, {
   sequelize,

@@ -1,10 +1,18 @@
 const doctorRouter = require('express').Router()
 const {Op} = require('sequelize')
+const Patient = require('../models/patient')
 
 const { Doctor } = require('../models')
 
 const Finder = async (req, res, next) => {
-  req.doctor = await Doctor.findByPk(req.params.id)
+  const where = {}
+  where.id = req.params.id
+  req.doctor = await Doctor.findAll({
+    include:{
+      model:Patient
+    },
+    where
+  })
   next()
 }
 
