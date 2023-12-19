@@ -1,0 +1,46 @@
+name: Deploy Express App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: hospital
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: 20021231
+        ports:
+          - 5432:5432
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: Build and Start PostgreSQL Container
+      run: |
+        docker-compose -f docker-compose.yml up -d
+
+    - name: Wait for PostgreSQL to Start
+      run: docker-compose -f path/to/your/docker-compose.yml exec -T postgres sh -c 'while ! pg_isready -q -h localhost -p 5432 -U root; do sleep 1; done'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Set up Environment Variables
+      run: echo "DATABASE_URL=postgres://root:20021231@localhost:5432/hospital\nPORT=3001" >> .env
+
+    - name: Start Express App
+      run: npm start
+
