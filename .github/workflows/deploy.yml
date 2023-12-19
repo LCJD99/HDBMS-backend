@@ -18,6 +18,7 @@ jobs:
           POSTGRES_PASSWORD: 20021231
         ports:
           - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - name: Checkout Repository
@@ -28,19 +29,12 @@ jobs:
       with:
         node-version: 14
 
-    - name: Build and Start PostgreSQL Container
-      run: |
-        docker-compose -f docker-compose.yml up -d
-
-    - name: Wait for PostgreSQL to Start
-      run: docker-compose -f path/to/your/docker-compose.yml exec -T postgres sh -c 'while ! pg_isready -q -h localhost -p 5432 -U root; do sleep 1; done'
-
     - name: Install Dependencies
       run: npm install
 
     - name: Set up Environment Variables
-      run: echo "DATABASE_URL=postgres://root:20021231@localhost:5432/hospital\nPORT=3001" >> .env
+      run: echo "DATABASE_URL=postgres://root:20021231@localhost:5432/hospital" >> .env
+
 
     - name: Start Express App
       run: npm start
-
