@@ -37,4 +37,6 @@ jobs:
 
 
     - name: Start Express App
-      run: npm start
+      run: |
+        nohup npm start &
+        echo $! > pidfile
