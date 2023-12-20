@@ -18,9 +18,12 @@ Patient.belongsTo(Doctor)
 
 // Record.hasMany(Testlab)
 // Testlab.belongsTo(Record)
+const CreateTable = async () =>{
+   await Doctor.sync({alter: true})
+   await Patient.sync({alter: true})
+}
 
-Doctor.sync({alter: true})
-Patient.sync({alter: true})
+CreateTable()
 // Record.sync({alter: true})
 // Medication.sync({alter: true})
 // Prescription.sync({alter: true})
