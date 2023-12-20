@@ -1,30 +1,36 @@
 const recordRouter = require('express').Router()
 const {Op} = require('sequelize')
 
-const { Record } = require('../models')
+const { Record ,Patient} = require('../models')
 
 const Finder = async (req, res, next) => {
-  req.record= await Record.findByPk(req.params.id)
+  const where = {}
+  where.id = req.params.id
+  req.record= await Record.findAll({
+    include:{
+      model:Patient
+    },
+    where
+  })
   next()
 }
 
 recordRouter.get('/', async (req, res) => {
   const where = {}
 
-  if (req.query.PatientId) {
+  if (req.query.patient) {
     where.PatientId= {
       [Op.substring]: req.query.name
     }
     
   } 
 
-  if (req.query.balance) {
-    where.balance= {
-      [Op.lte]: req.query.balance
-    }
-  }
-
-  const p = await Record.findAll({ where } )
+  const p = await Record.findAll({ 
+    include:{
+      model: Patient
+    },
+    where 
+  } )
 
   res.json(p)
 })
@@ -58,7 +64,7 @@ recordRouter.delete('/:id', Finder, async (req, res) => {
 // TODO: can judge which information to be change
 recordRouter.put('/:id', Finder, async (req, res) => {
   if (req.record) {
-    req.record.balance= req.body.balance
+    req.record.symptom = req.body.symptom
     await req.record.save()
     res.json(req.record)
   } else {

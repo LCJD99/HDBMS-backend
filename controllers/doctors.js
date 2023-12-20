@@ -1,8 +1,6 @@
 const doctorRouter = require('express').Router()
 const {Op} = require('sequelize')
-const Patient = require('../models/patient')
-
-const { Doctor } = require('../models')
+const { Doctor , Patient} = require('../models')
 
 const Finder = async (req, res, next) => {
   const where = {}

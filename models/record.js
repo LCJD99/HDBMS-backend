@@ -8,11 +8,6 @@ Record.init({
     primaryKey: true,
     autoIncrement: true
   },
-  patientId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {model: 'patients', key:'id'}
-  },
   date: {
     type: DataTypes.DATE
   },

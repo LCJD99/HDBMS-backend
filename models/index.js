@@ -3,32 +3,34 @@ const Medication = require('./medication')
 const Patient = require('./patient')
 const Prescription = require('./prescription')
 const Record = require('./record')
+const Administator= require('./administator')
 const Testlab = require('./testlab')
 const PresciptionMedication = require('./pres_medi')
-const Sequelize = require('sequelize')
 
 Doctor.hasMany(Patient)
 Patient.belongsTo(Doctor)
+Patient.hasOne(Record)
+Record.hasMany(Testlab)
+Testlab.belongsTo(Record)
+Record.hasMany(Prescription)
+Prescription.belongsTo(Record)
+Prescription.belongsToMany(Medication, {through: PresciptionMedication})
+Medication.belongsToMany(Prescription, {through: PresciptionMedication})
 
-// Prescription.belongsTo(Record)
-// Record.hasMany(Prescription)
-
-// Prescription.belongsToMany(Medication, {through: PresciptionMedication})
-// Medication.belongsToMany(Prescription, {through: PresciptionMedication})
-
-// Record.hasMany(Testlab)
-// Testlab.belongsTo(Record)
 const CreateTable = async () =>{
    await Doctor.sync({alter: true})
+   await Administator.sync({alter: true})
    await Patient.sync({alter: true})
+   await Record.sync({alter: true})
+   await Medication.sync({alter: true})
+   await Prescription.sync({alter: true})
+   await Testlab.sync({alter: true})
+   await PresciptionMedication.sync({alter: true})
 }
 
 CreateTable()
 // Record.sync({alter: true})
 // Medication.sync({alter: true})
-// Prescription.sync({alter: true})
-// Testlab.sync({alter: true})
-// PresciptionMedication.sync({alter: true})
 
 module.exports = {
    Doctor, Medication, Patient, Prescription, Record, Testlab, PresciptionMedication
