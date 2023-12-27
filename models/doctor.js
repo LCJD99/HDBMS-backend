@@ -19,6 +19,15 @@ Doctor.init({
     type: DataTypes.TEXT,
     allowNull: false
   },
+  account: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  password: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    defaultValue: "ddd"
+  },
 }, {
   sequelize,
   underscored: true,

@@ -14,6 +14,11 @@ Patient.init({
     type: DataTypes.TEXT,
     allowNull: false
   },
+  gender: {
+    type: DataTypes.TEXT,
+    defaultValue: "男",
+    allowNull: false
+  },
   contantInfo: {
     type: DataTypes.TEXT,
     allowNull: false
@@ -25,6 +30,15 @@ Patient.init({
   balance: {
     type: DataTypes.DOUBLE,
     defaultValue: 0
+  },
+  account: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  password: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    defaultValue: "ppp"
   },
 
 }, {

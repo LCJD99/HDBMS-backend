@@ -9,14 +9,6 @@ Testlab.init({
       primaryKey: true,
       autoIncrement: true
     },
-    recordId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'records',
-        key: 'id'
-      }
-    },
     testType: {
       type: DataTypes.TEXT,
       allowNull: false
